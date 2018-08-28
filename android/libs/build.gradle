@@ -1,31 +1,20 @@
-def buildAsLibrary = project.hasProperty('BUILD_AS_LIBRARY');
-def buildAsApplication = !buildAsLibrary
-if (buildAsApplication) {
-    apply plugin: 'com.android.application'
-}
-else {
-    apply plugin: 'com.android.library'
-}
+
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "28.0.1"
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
-        versionName new File('app/jni/src/version.h').text.split("\"")[1]
-        if (buildAsApplication) {
-            applicationId "com.cleverraven.cataclysmdda"
-            setProperty("archivesBaseName", "cataclysmdda-" + versionName)
-        }
 	ndk {
 		abiFilters "armeabi-v7a"
         //abiFilters "x86" // use this for testing on emulators
 	}
     externalNativeBuild {
         ndkBuild {
-            arguments "APP_PLATFORM=android-14", "-j8"
+            arguments "APP_PLATFORM=android-14", "-j3"
         }
     }
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -50,17 +39,14 @@ android {
     lintOptions {
         abortOnError false
     }
-    
-    if (buildAsLibrary) {
-        libraryVariants.all { variant ->
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                if (outputFile != null && outputFile.name.endsWith(".aar")) {
-                    def fileName = "com.cleverraven.cataclysmdda.aar";
-                    output.outputFile = new File(outputFile.parent, fileName);
-                }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all {
+            variant.outputs.all {
+               outputFileName = "${variant.name}.aar"
             }
         }
+
     }
 }
 
