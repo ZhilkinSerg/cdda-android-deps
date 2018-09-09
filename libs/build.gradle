@@ -1,28 +1,36 @@
 
 apply plugin: 'com.android.library'
 
+def njobs = getProperty('j')
+
 android {
-    compileSdkVersion 24
+    compileSdkVersion 26
     buildToolsVersion "28.0.1"
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
 	ndk {
 		abiFilters "armeabi-v7a"
         //abiFilters "x86" // use this for testing on emulators
 	}
-    externalNativeBuild {
-        ndkBuild {
-            arguments "APP_PLATFORM=android-14", "-j3"
-        }
-    }
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            externalNativeBuild {
+                ndkBuild {
+                    arguments "APP_PLATFORM=android-16", "-j$njobs"
+		    cFlags "-O3", "-DNEBUG"
+                }
+            }
+        }
+        debug {
+            externalNativeBuild {
+                ndkBuild {
+                    arguments "APP_PLATFORM=android-16", "-j$njobs"
+                }
+            }
         }
     }
     if (!project.hasProperty('EXCLUDE_NATIVE_LIBS')) {
@@ -42,11 +50,8 @@ android {
 
     libraryVariants.all { variant ->
         variant.outputs.all {
-            variant.outputs.all {
-               outputFileName = "${variant.name}.aar"
-            }
+            outputFileName = "cddadeps-${variant.name}.aar"
         }
-
     }
 }
 
