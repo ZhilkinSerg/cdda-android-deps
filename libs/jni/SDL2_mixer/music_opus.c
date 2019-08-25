@@ -27,7 +27,11 @@
 
 #include "music_opus.h"
 
-#include <opusfile.h>
+#if defined(OPUS_HEADER)
+#include OPUS_HEADER
+#else
+#include <opus/opusfile.h>
+#endif
 
 typedef struct {
     int loaded;
@@ -65,7 +69,7 @@ static int OPUS_Load(void)
         extern OggOpusFile *op_open_callbacks(void *,const OpusFileCallbacks *,const unsigned char *,size_t,int *) __attribute__((weak_import));
         if (op_open_callbacks == NULL) {
             /* Missing weakly linked framework */
-            Mix_SetError("Missing Opus.framework");
+            Mix_SetError("Missing OpusFile.framework");
             return -1;
         }
 #endif
@@ -140,7 +144,7 @@ static int sdl_read_func(void *datasource, unsigned char *ptr, int size)
     return (int)SDL_RWread((SDL_RWops*)datasource, ptr, 1, size);
 }
 
-static int sdl_seek_func(void *datasource, ogg_int64_t offset, int whence)
+static int sdl_seek_func(void *datasource, opus_int64  offset, int whence)
 {
     return (SDL_RWseek((SDL_RWops*)datasource, offset, whence) < 0)? -1 : 0;
 }
