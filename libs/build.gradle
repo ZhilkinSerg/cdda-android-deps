@@ -4,31 +4,33 @@ apply plugin: 'com.android.library'
 def njobs = getProperty('j')
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "28.0.1"
+    compileSdkVersion 28
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
-	ndk {
-		abiFilters "armeabi-v7a"
+    ndk {
+        abiFilters "armeabi-v7a"
+        abiFilters "arm64-v8a"
         //abiFilters "x86" // use this for testing on emulators
-	}
+        //abiFilters "x86_64" // use this for testing on emulators
+    }
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             externalNativeBuild {
                 ndkBuild {
-                    arguments "APP_PLATFORM=android-16", "-j$njobs"
-		    cFlags "-O3", "-DNEBUG"
+                    arguments "APP_PLATFORM=android-21", "-j$njobs"
+            cFlags "-O3", "-DNEBUG", "-DPNG_ARM_NEON_OPT=0"
                 }
             }
         }
         debug {
             externalNativeBuild {
                 ndkBuild {
-                    arguments "APP_PLATFORM=android-16", "-j$njobs"
+                    arguments "APP_PLATFORM=android-21", "-j$njobs"
+            cFlags "-DPNG_ARM_NEON_OPT=0"
                 }
             }
         }
@@ -56,9 +58,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }

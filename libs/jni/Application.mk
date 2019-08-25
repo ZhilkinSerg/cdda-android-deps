@@ -3,6 +3,7 @@
 # See CPLUSPLUS-SUPPORT.html in the NDK documentation for more information
 APP_STL := c++_shared
 APP_CPPFLAGS += -std=c++11
+APP_CFLAGS += -DPNG_ARM_NEON_OPT=0
 ifneq ($(OS),Windows_NT)
     APP_LDFLAGS += -fuse-ld=gold
 endif
@@ -13,5 +14,5 @@ endif
 #APP_OPTIM := release
 
 # Min SDK level
-APP_PLATFORM=android-14
+APP_PLATFORM=android-21
 
