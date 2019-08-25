@@ -17,7 +17,10 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
 LOCAL_SRC_FILES := src/lapi.c \
 	src/lauxlib.c \
 	src/lbaselib.c \
+	src/lbitlib.c \
 	src/lcode.c \
+	src/lcorolib.c \
+	src/lctype.c \
 	src/ldblib.c \
 	src/ldebug.c \
 	src/ldo.c \
@@ -40,9 +43,10 @@ LOCAL_SRC_FILES := src/lapi.c \
 	src/ltable.c \
 	src/ltablib.c \
 	src/ltm.c \
+	src/lua.c \
 	src/lundump.c \
+	src/lutf8lib.c \
 	src/lvm.c \
-	src/lzio.c \
-	src/print.c
+	src/lzio.c
 
 include $(BUILD_SHARED_LIBRARY)
