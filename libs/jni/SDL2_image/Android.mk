@@ -1,4 +1,4 @@
-MY_LOCAL_PATH := $(call my-dir)
+SDL_IMAGE_LOCAL_PATH := $(call my-dir)
 
 
 # Enable this if you want to support loading JPEG images
@@ -9,32 +9,32 @@ JPG_LIBRARY_PATH := external/jpeg-9b
 # Enable this if you want to support loading PNG images
 # The library path should be a relative path to this directory.
 SUPPORT_PNG ?= true
-PNG_LIBRARY_PATH := external/libpng-1.6.32
+PNG_LIBRARY_PATH := external/libpng-1.6.37
 
 # Enable this if you want to support loading WebP images
 # The library path should be a relative path to this directory.
 SUPPORT_WEBP ?= true
-WEBP_LIBRARY_PATH := external/libwebp-0.6.0
+WEBP_LIBRARY_PATH := external/libwebp-1.0.2
 
 
 # Build the library
 ifeq ($(SUPPORT_JPG),true)
-    include $(MY_LOCAL_PATH)/$(JPG_LIBRARY_PATH)/Android.mk
+    include $(SDL_IMAGE_LOCAL_PATH)/$(JPG_LIBRARY_PATH)/Android.mk
 endif
 
 # Build the library
 ifeq ($(SUPPORT_PNG),true)
-    include $(MY_LOCAL_PATH)/$(PNG_LIBRARY_PATH)/Android.mk
+    include $(SDL_IMAGE_LOCAL_PATH)/$(PNG_LIBRARY_PATH)/Android.mk
 endif
 
 # Build the library
 ifeq ($(SUPPORT_WEBP),true)
-    include $(MY_LOCAL_PATH)/$(WEBP_LIBRARY_PATH)/Android.mk
+    include $(SDL_IMAGE_LOCAL_PATH)/$(WEBP_LIBRARY_PATH)/Android.mk
 endif
 
 
 # Restore local path
-LOCAL_PATH := $(MY_LOCAL_PATH)
+LOCAL_PATH := $(SDL_IMAGE_LOCAL_PATH)
 
 include $(CLEAR_VARS)
 
