@@ -14,5 +14,5 @@ endif
 #APP_OPTIM := release
 
 # Min SDK level
-APP_PLATFORM=android-21
+APP_PLATFORM=android-16
 

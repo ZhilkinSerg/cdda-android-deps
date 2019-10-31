@@ -6,7 +6,7 @@ def njobs = getProperty('j')
 android {
     compileSdkVersion 28
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
     ndk {
@@ -21,7 +21,7 @@ android {
         release {
             externalNativeBuild {
                 ndkBuild {
-                    arguments "APP_PLATFORM=android-21", "-j$njobs"
+                    arguments "APP_PLATFORM=android-16", "-j$njobs"
             cFlags "-O3", "-DNEBUG", "-DPNG_ARM_NEON_OPT=0"
                 }
             }
@@ -29,7 +29,7 @@ android {
         debug {
             externalNativeBuild {
                 ndkBuild {
-                    arguments "APP_PLATFORM=android-21", "-j$njobs"
+                    arguments "APP_PLATFORM=android-16", "-j$njobs"
             cFlags "-DPNG_ARM_NEON_OPT=0"
                 }
             }
