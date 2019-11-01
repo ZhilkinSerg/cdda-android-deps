@@ -67,6 +67,7 @@ android_egl_context_restore(SDL_Window *window)
             SDL_PushEvent(&event);
         }
     }
+    Android_Window->surface_valid = SDL_FALSE;
 }
 
 static void
