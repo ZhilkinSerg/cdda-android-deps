@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2020 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -57,7 +57,7 @@ extern int SDL_HelperWindowDestroy(void);
     parts of SDL, because we don't want anything calling it without an
     extremely good reason. */
 extern SDL_NORETURN void SDL_ExitProcess(int exitcode);
-SDL_NORETURN void SDL_ExitProcess(const int exitcode)
+SDL_NORETURN void SDL_ExitProcess(int exitcode)
 {
 #ifdef __WIN32__
     /* "if you do not know the state of all threads in your process, it is

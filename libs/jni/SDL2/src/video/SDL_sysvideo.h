@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2020 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -439,6 +439,7 @@ extern int SDL_GetIndexOfDisplay(SDL_VideoDisplay *display);
 extern SDL_VideoDisplay *SDL_GetDisplay(int displayIndex);
 extern SDL_VideoDisplay *SDL_GetDisplayForWindow(SDL_Window *window);
 extern void *SDL_GetDisplayDriverData( int displayIndex );
+extern SDL_bool SDL_IsVideoContextExternal(void);
 
 extern void SDL_GL_DeduceMaxSupportedESProfile(int* major, int* minor);
 
@@ -460,13 +461,6 @@ extern SDL_Window * SDL_GetFocusWindow(void);
 extern SDL_bool SDL_ShouldAllowTopmost(void);
 
 extern float SDL_ComputeDiagonalDPI(int hpix, int vpix, float hinches, float vinches);
-
-extern void SDL_OnApplicationWillTerminate(void);
-extern void SDL_OnApplicationDidReceiveMemoryWarning(void);
-extern void SDL_OnApplicationWillResignActive(void);
-extern void SDL_OnApplicationDidEnterBackground(void);
-extern void SDL_OnApplicationWillEnterForeground(void);
-extern void SDL_OnApplicationDidBecomeActive(void);
 
 extern void SDL_ToggleDragAndDropSupport(void);
 
