@@ -68,7 +68,6 @@ android_egl_context_restore(SDL_Window *window)
             event.type = SDL_RENDER_DEVICE_RESET;
             SDL_PushEvent(&event);
         }
-        Android_Window->surface_valid = SDL_FALSE;
         data->backup_done = 0;
     }
 }
@@ -176,8 +175,10 @@ Android_PumpEvents_NonBlocking(_THIS)
                 SDL_UnlockMutex(Android_ActivityMutex);
             }
 
-            ANDROIDAUDIO_PauseDevices();
-            openslES_PauseDevices();
+            if (videodata->pauseAudio) {
+                ANDROIDAUDIO_PauseDevices();
+                openslES_PauseDevices();
+            }
 
             backup_context = 0;
         }
@@ -192,8 +193,10 @@ Android_PumpEvents_NonBlocking(_THIS)
             SDL_SendAppEvent(SDL_APP_DIDENTERFOREGROUND);
             SDL_SendWindowEvent(Android_Window, SDL_WINDOWEVENT_RESTORED, 0, 0);
 
-            ANDROIDAUDIO_ResumeDevices();
-            openslES_ResumeDevices();
+            if (videodata->pauseAudio) {
+                ANDROIDAUDIO_ResumeDevices();
+                openslES_ResumeDevices();
+            }
 
             /* Restore the GL Context from here, as this operation is thread dependent */
             if (!isContextExternal && !SDL_HasEvent(SDL_QUIT)) {

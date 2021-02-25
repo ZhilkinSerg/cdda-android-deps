@@ -25,7 +25,6 @@
 #include "../SDL_sysrender.h"
 #include "SDL_render_sw_c.h"
 #include "SDL_hints.h"
-#include "SDL_assert.h"
 
 #include "SDL_draw.h"
 #include "SDL_blendfillrect.h"
@@ -75,8 +74,7 @@ SW_WindowEvent(SDL_Renderer * renderer, const SDL_WindowEvent *event)
 
     if (event->event == SDL_WINDOWEVENT_SIZE_CHANGED) {
         data->surface = NULL;
-        // commenting this out seems to prevent the software renderer from crashing on newer/faster Android devices when locking/unlocking and switching app focus, though results in a black screen upon resume occasionally
-        //data->window = NULL;
+        data->window = NULL;
     }
 }
 
