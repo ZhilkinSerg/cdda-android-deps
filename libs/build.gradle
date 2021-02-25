@@ -109,8 +109,11 @@ android {
         release {
             externalNativeBuild {
                 ndkBuild {
-                    cFlags "-DPNG_ARM_NEON_OPT=0", "-O3", "-DNEBUG"
+                    cFlags "-DPNG_ARM_NEON_OPT=0", "-O3", "-DNEBUG", "-g"
                 }
+            }
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
             }
         }
         debug {
@@ -118,6 +121,9 @@ android {
                 ndkBuild {
                     cFlags "-DPNG_ARM_NEON_OPT=0"
                 }
+            }
+            ndk {
+                debugSymbolLevel 'FULL'
             }
         }
     }
